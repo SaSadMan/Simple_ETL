@@ -1,0 +1,62 @@
+[2026-03-26T09:24:21.214+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-26T09:24:21.233+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_pipeline2.mrr_to_stg manual__2026-03-26T09:24:19.306447+00:00 [queued]>
+[2026-03-26T09:24:21.239+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_pipeline2.mrr_to_stg manual__2026-03-26T09:24:19.306447+00:00 [queued]>
+[2026-03-26T09:24:21.240+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 1
+[2026-03-26T09:24:21.248+0000] {taskinstance.py:2327} INFO - Executing <Task(PythonOperator): mrr_to_stg> on 2026-03-26 09:24:19.306447+00:00
+[2026-03-26T09:24:21.253+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=1918) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-03-26T09:24:21.253+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'etl_pipeline2', 'mrr_to_stg', 'manual__2026-03-26T09:24:19.306447+00:00', '--job-id', '335', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline2.py', '--cfg-path', '/tmp/tmpx4_uv0vf']
+[2026-03-26T09:24:21.254+0000] {standard_task_runner.py:63} INFO - Started process 1919 to run task
+[2026-03-26T09:24:21.255+0000] {standard_task_runner.py:91} INFO - Job 335: Subtask mrr_to_stg
+[2026-03-26T09:24:21.300+0000] {task_command.py:426} INFO - Running <TaskInstance: etl_pipeline2.mrr_to_stg manual__2026-03-26T09:24:19.306447+00:00 [running]> on host 3ccff2366b2a
+[2026-03-26T09:24:21.359+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_pipeline2' AIRFLOW_CTX_TASK_ID='mrr_to_stg' AIRFLOW_CTX_EXECUTION_DATE='2026-03-26T09:24:19.306447+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-26T09:24:19.306447+00:00'
+[2026-03-26T09:24:21.360+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-26T09:24:21.373+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:21.383+0000] {sql.py:457} INFO - Running statement: TRUNCATE stg_fact_orders, parameters: None
+[2026-03-26T09:24:21.394+0000] {base.py:84} INFO - Using connection ID 'postgres_mrr' for task execution.
+[2026-03-26T09:24:21.404+0000] {sql.py:457} INFO - Running statement: SELECT * FROM mrr_fact_orders, parameters: None
+[2026-03-26T09:24:21.412+0000] {sql.py:466} INFO - Rows affected: 830
+[2026-03-26T09:24:21.415+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/providers/common/sql/hooks/sql.py:407 AirflowProviderDeprecationWarning: Call to deprecated method _make_common_data_structure. (The `_make_serializable` method is deprecated and support will be removed in a future version of the common.sql provider. Please update the DbApiHook's provider to a version based on common.sql >= 1.9.1.)
+[2026-03-26T09:24:21.421+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.264+0000] {sql.py:580} INFO - Done loading. Loaded a total of 830 rows into stg_fact_orders
+[2026-03-26T09:24:22.269+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.280+0000] {sql.py:457} INFO - Running statement: TRUNCATE stg_dim_customers, parameters: None
+[2026-03-26T09:24:22.291+0000] {base.py:84} INFO - Using connection ID 'postgres_mrr' for task execution.
+[2026-03-26T09:24:22.304+0000] {sql.py:457} INFO - Running statement: SELECT * FROM mrr_dim_customers, parameters: None
+[2026-03-26T09:24:22.309+0000] {sql.py:466} INFO - Rows affected: 277
+[2026-03-26T09:24:22.315+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.559+0000] {sql.py:580} INFO - Done loading. Loaded a total of 277 rows into stg_dim_customers
+[2026-03-26T09:24:22.564+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.574+0000] {sql.py:457} INFO - Running statement: TRUNCATE stg_dim_products, parameters: None
+[2026-03-26T09:24:22.582+0000] {base.py:84} INFO - Using connection ID 'postgres_mrr' for task execution.
+[2026-03-26T09:24:22.591+0000] {sql.py:457} INFO - Running statement: SELECT * FROM mrr_dim_products, parameters: None
+[2026-03-26T09:24:22.595+0000] {sql.py:466} INFO - Rows affected: 308
+[2026-03-26T09:24:22.601+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.874+0000] {sql.py:580} INFO - Done loading. Loaded a total of 308 rows into stg_dim_products
+[2026-03-26T09:24:22.879+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:22.888+0000] {sql.py:457} INFO - Running statement: TRUNCATE stg_fact_order_details, parameters: None
+[2026-03-26T09:24:22.897+0000] {base.py:84} INFO - Using connection ID 'postgres_mrr' for task execution.
+[2026-03-26T09:24:22.906+0000] {sql.py:457} INFO - Running statement: SELECT * FROM mrr_fact_order_details, parameters: None
+[2026-03-26T09:24:22.919+0000] {sql.py:466} INFO - Rows affected: 6466
+[2026-03-26T09:24:22.930+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T09:24:23.818+0000] {sql.py:576} INFO - Loaded 1000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:24.572+0000] {sql.py:576} INFO - Loaded 2000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:25.404+0000] {sql.py:576} INFO - Loaded 3000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:26.309+0000] {sql.py:576} INFO - Loaded 4000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:27.153+0000] {sql.py:576} INFO - Loaded 5000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:28.012+0000] {sql.py:576} INFO - Loaded 6000 rows into stg_fact_order_details so far
+[2026-03-26T09:24:28.381+0000] {sql.py:580} INFO - Done loading. Loaded a total of 6466 rows into stg_fact_order_details
+[2026-03-26T09:24:28.382+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-03-26T09:24:28.383+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-26T09:24:28.388+0000] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=etl_pipeline2, task_id=mrr_to_stg, execution_date=20260326T092419, start_date=20260326T092421, end_date=20260326T092428
+[2026-03-26T09:24:28.391+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T09:24:28.400+0000] {sql.py:457} INFO - Running statement: 
+        INSERT INTO etl_logs (
+            dag_id, task_id, status, start_time, end_time, duration_seconds, error_message
+        )
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    , parameters: ('etl_pipeline2', 'mrr_to_stg', 'SUCCESS', datetime.datetime(2026, 3, 26, 9, 24, 21, 234278), datetime.datetime(2026, 3, 26, 9, 24, 28, 389219), 7, None)
+[2026-03-26T09:24:28.403+0000] {sql.py:466} INFO - Rows affected: 1
+[2026-03-26T09:24:28.405+0000] {logging_mixin.py:188} INFO - SUCCESS CALLBACK TRIGGERED
+[2026-03-26T09:24:28.450+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-03-26T09:24:28.462+0000] {taskinstance.py:3482} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-03-26T09:24:28.464+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

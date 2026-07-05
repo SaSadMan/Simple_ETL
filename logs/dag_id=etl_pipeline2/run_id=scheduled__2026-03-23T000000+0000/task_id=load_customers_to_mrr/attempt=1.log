@@ -1,0 +1,68 @@
+[2026-03-24T14:21:47.839+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-24T14:21:47.868+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_pipeline2.load_customers_to_mrr scheduled__2026-03-23T00:00:00+00:00 [queued]>
+[2026-03-24T14:21:47.875+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_pipeline2.load_customers_to_mrr scheduled__2026-03-23T00:00:00+00:00 [queued]>
+[2026-03-24T14:21:47.879+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 1
+[2026-03-24T14:21:47.891+0000] {taskinstance.py:2327} INFO - Executing <Task(PythonOperator): load_customers_to_mrr> on 2026-03-23 00:00:00+00:00
+[2026-03-24T14:21:47.903+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=184) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-03-24T14:21:47.901+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'etl_pipeline2', 'load_customers_to_mrr', 'scheduled__2026-03-23T00:00:00+00:00', '--job-id', '144', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline2.py', '--cfg-path', '/tmp/tmp73n5d06l']
+[2026-03-24T14:21:47.904+0000] {standard_task_runner.py:63} INFO - Started process 194 to run task
+[2026-03-24T14:21:47.904+0000] {standard_task_runner.py:91} INFO - Job 144: Subtask load_customers_to_mrr
+[2026-03-24T14:21:47.967+0000] {task_command.py:426} INFO - Running <TaskInstance: etl_pipeline2.load_customers_to_mrr scheduled__2026-03-23T00:00:00+00:00 [running]> on host 3ccff2366b2a
+[2026-03-24T14:21:48.049+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_pipeline2' AIRFLOW_CTX_TASK_ID='load_customers_to_mrr' AIRFLOW_CTX_EXECUTION_DATE='2026-03-23T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2026-03-23T00:00:00+00:00'
+[2026-03-24T14:21:48.049+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-24T14:21:48.083+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-24T14:21:48.125+0000] {sql.py:457} INFO - Running statement: 
+        SELECT last_loaded_at
+        FROM dwh_high_water_mark
+        WHERE table_name = 'customers'
+    , parameters: None
+[2026-03-24T14:21:48.135+0000] {sql.py:466} INFO - Rows affected: 1
+[2026-03-24T14:21:48.139+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/providers/common/sql/hooks/sql.py:407 AirflowProviderDeprecationWarning: Call to deprecated method _make_common_data_structure. (The `_make_serializable` method is deprecated and support will be removed in a future version of the common.sql provider. Please update the DbApiHook's provider to a version based on common.sql >= 1.9.1.)
+[2026-03-24T14:21:48.148+0000] {base.py:84} INFO - Using connection ID 'postgres_operational' for task execution.
+[2026-03-24T14:21:48.161+0000] {sql.py:457} INFO - Running statement: 
+        SELECT customer_id, company_name, contact_name, contact_title, city, country, updated_at
+        FROM customers
+        WHERE updated_at > '1999-01-01 00:00:00'
+    , parameters: None
+[2026-03-24T14:21:48.166+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-24T14:21:48.167+0000] {taskinstance.py:2890} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 465, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 432, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 400, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 235, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 252, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/etl_pipeline2.py", line 65, in load_customers_to_mrr
+    load_table_to_mrr(
+  File "/opt/airflow/dags/etl_pipeline2.py", line 22, in load_table_to_mrr
+    rows = source.get_records(f"""
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 267, in get_records
+    return self.run(sql=sql, parameters=parameters, handler=fetch_all_handler)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 404, in run
+    self._run_command(cur, sql_statement, parameters)
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/providers/common/sql/hooks/sql.py", line 462, in _run_command
+    cur.execute(sql_statement)
+psycopg2.errors.UndefinedColumn: column "updated_at" does not exist
+LINE 2: ...name, contact_name, contact_title, city, country, updated_at
+                                                             ^
+
+[2026-03-24T14:21:48.185+0000] {taskinstance.py:1205} INFO - Marking task as FAILED. dag_id=etl_pipeline2, task_id=load_customers_to_mrr, execution_date=20260323T000000, start_date=20260324T142147, end_date=20260324T142148
+[2026-03-24T14:21:48.198+0000] {standard_task_runner.py:110} ERROR - Failed to execute job 144 for task load_customers_to_mrr (column "updated_at" does not exist
+LINE 2: ...name, contact_name, contact_title, city, country, updated_at
+                                                             ^
+; 194)
+[2026-03-24T14:21:48.238+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 1
+[2026-03-24T14:21:48.260+0000] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-24T14:21:48.263+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

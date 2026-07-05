@@ -1,0 +1,34 @@
+[2026-03-24T14:26:27.766+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-24T14:26:27.790+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_pipeline2.load_order_details_to_mrr manual__2026-03-24T14:26:27.396922+00:00 [queued]>
+[2026-03-24T14:26:27.797+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_pipeline2.load_order_details_to_mrr manual__2026-03-24T14:26:27.396922+00:00 [queued]>
+[2026-03-24T14:26:27.798+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 1
+[2026-03-24T14:26:27.808+0000] {taskinstance.py:2327} INFO - Executing <Task(PythonOperator): load_order_details_to_mrr> on 2026-03-24 14:26:27.396922+00:00
+[2026-03-24T14:26:27.816+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'etl_pipeline2', 'load_order_details_to_mrr', 'manual__2026-03-24T14:26:27.396922+00:00', '--job-id', '146', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline2.py', '--cfg-path', '/tmp/tmp9jmvut_y']
+[2026-03-24T14:26:27.816+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=293) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-03-24T14:26:27.818+0000] {standard_task_runner.py:91} INFO - Job 146: Subtask load_order_details_to_mrr
+[2026-03-24T14:26:27.818+0000] {standard_task_runner.py:63} INFO - Started process 298 to run task
+[2026-03-24T14:26:27.870+0000] {task_command.py:426} INFO - Running <TaskInstance: etl_pipeline2.load_order_details_to_mrr manual__2026-03-24T14:26:27.396922+00:00 [running]> on host 3ccff2366b2a
+[2026-03-24T14:26:27.934+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_pipeline2' AIRFLOW_CTX_TASK_ID='load_order_details_to_mrr' AIRFLOW_CTX_EXECUTION_DATE='2026-03-24T14:26:27.396922+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-24T14:26:27.396922+00:00'
+[2026-03-24T14:26:27.935+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-24T14:26:27.954+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-24T14:26:27.969+0000] {sql.py:457} INFO - Running statement: 
+        SELECT last_loaded_at
+        FROM dwh_high_water_mark
+        WHERE table_name = 'order_details'
+    , parameters: None
+[2026-03-24T14:26:27.973+0000] {sql.py:466} INFO - Rows affected: 1
+[2026-03-24T14:26:27.977+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/providers/common/sql/hooks/sql.py:407 AirflowProviderDeprecationWarning: Call to deprecated method _make_common_data_structure. (The `_make_serializable` method is deprecated and support will be removed in a future version of the common.sql provider. Please update the DbApiHook's provider to a version based on common.sql >= 1.9.1.)
+[2026-03-24T14:26:27.987+0000] {base.py:84} INFO - Using connection ID 'postgres_operational' for task execution.
+[2026-03-24T14:26:28.000+0000] {sql.py:457} INFO - Running statement: 
+        SELECT order_id, product_id, unit_price, quantity, discount, updated_at
+        FROM order_details
+        WHERE updated_at > '2026-03-23 19:25:55.360025'
+    , parameters: None
+[2026-03-24T14:26:28.004+0000] {sql.py:466} INFO - Rows affected: 0
+[2026-03-24T14:26:28.007+0000] {logging_mixin.py:188} INFO - No new data for order_details
+[2026-03-24T14:26:28.007+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-03-24T14:26:28.010+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-24T14:26:28.020+0000] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=etl_pipeline2, task_id=load_order_details_to_mrr, execution_date=20260324T142627, start_date=20260324T142627, end_date=20260324T142628
+[2026-03-24T14:26:28.073+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-03-24T14:26:28.107+0000] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-24T14:26:28.109+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

@@ -1,0 +1,58 @@
+[2026-03-26T11:06:03.459+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-26T11:06:03.478+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: etl_pipeline2.stg_to_dwh manual__2026-03-26T11:05:57.440444+00:00 [queued]>
+[2026-03-26T11:06:03.484+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: etl_pipeline2.stg_to_dwh manual__2026-03-26T11:05:57.440444+00:00 [queued]>
+[2026-03-26T11:06:03.485+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 1
+[2026-03-26T11:06:03.495+0000] {taskinstance.py:2327} INFO - Executing <Task(PythonOperator): stg_to_dwh> on 2026-03-26 11:05:57.440444+00:00
+[2026-03-26T11:06:03.501+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:61 DeprecationWarning: This process (pid=2837) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2026-03-26T11:06:03.500+0000] {standard_task_runner.py:90} INFO - Running: ['***', 'tasks', 'run', 'etl_pipeline2', 'stg_to_dwh', 'manual__2026-03-26T11:05:57.440444+00:00', '--job-id', '386', '--raw', '--subdir', 'DAGS_FOLDER/etl_pipeline2.py', '--cfg-path', '/tmp/tmp_3jou61f']
+[2026-03-26T11:06:03.502+0000] {standard_task_runner.py:63} INFO - Started process 2838 to run task
+[2026-03-26T11:06:03.503+0000] {standard_task_runner.py:91} INFO - Job 386: Subtask stg_to_dwh
+[2026-03-26T11:06:03.548+0000] {task_command.py:426} INFO - Running <TaskInstance: etl_pipeline2.stg_to_dwh manual__2026-03-26T11:05:57.440444+00:00 [running]> on host 3ccff2366b2a
+[2026-03-26T11:06:03.608+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='etl_pipeline2' AIRFLOW_CTX_TASK_ID='stg_to_dwh' AIRFLOW_CTX_EXECUTION_DATE='2026-03-26T11:05:57.440444+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-26T11:05:57.440444+00:00'
+[2026-03-26T11:06:03.609+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-26T11:06:03.623+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:03.633+0000] {sql.py:457} INFO - Running statement: TRUNCATE dwh_fact_orders, parameters: None
+[2026-03-26T11:06:03.648+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T11:06:03.658+0000] {sql.py:457} INFO - Running statement: SELECT * FROM stg_fact_orders, parameters: None
+[2026-03-26T11:06:03.666+0000] {sql.py:466} INFO - Rows affected: 830
+[2026-03-26T11:06:03.668+0000] {logging_mixin.py:188} WARNING - /home/***/.local/lib/python3.12/site-packages/***/providers/common/sql/hooks/sql.py:407 AirflowProviderDeprecationWarning: Call to deprecated method _make_common_data_structure. (The `_make_serializable` method is deprecated and support will be removed in a future version of the common.sql provider. Please update the DbApiHook's provider to a version based on common.sql >= 1.9.1.)
+[2026-03-26T11:06:03.675+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.529+0000] {sql.py:580} INFO - Done loading. Loaded a total of 830 rows into dwh_fact_orders
+[2026-03-26T11:06:04.533+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.543+0000] {sql.py:457} INFO - Running statement: TRUNCATE dwh_dim_customers, parameters: None
+[2026-03-26T11:06:04.556+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T11:06:04.567+0000] {sql.py:457} INFO - Running statement: SELECT * FROM stg_dim_customers, parameters: None
+[2026-03-26T11:06:04.571+0000] {sql.py:466} INFO - Rows affected: 93
+[2026-03-26T11:06:04.578+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.700+0000] {sql.py:580} INFO - Done loading. Loaded a total of 93 rows into dwh_dim_customers
+[2026-03-26T11:06:04.705+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.716+0000] {sql.py:457} INFO - Running statement: TRUNCATE dwh_dim_products, parameters: None
+[2026-03-26T11:06:04.728+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T11:06:04.737+0000] {sql.py:457} INFO - Running statement: SELECT * FROM stg_dim_products, parameters: None
+[2026-03-26T11:06:04.740+0000] {sql.py:466} INFO - Rows affected: 77
+[2026-03-26T11:06:04.747+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.834+0000] {sql.py:580} INFO - Done loading. Loaded a total of 77 rows into dwh_dim_products
+[2026-03-26T11:06:04.840+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:04.849+0000] {sql.py:457} INFO - Running statement: TRUNCATE dwh_fact_order_details, parameters: None
+[2026-03-26T11:06:04.860+0000] {base.py:84} INFO - Using connection ID 'postgres_stg' for task execution.
+[2026-03-26T11:06:04.870+0000] {sql.py:457} INFO - Running statement: SELECT * FROM stg_fact_order_details, parameters: None
+[2026-03-26T11:06:04.884+0000] {sql.py:466} INFO - Rows affected: 2154
+[2026-03-26T11:06:04.892+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:05.860+0000] {sql.py:576} INFO - Loaded 1000 rows into dwh_fact_order_details so far
+[2026-03-26T11:06:06.959+0000] {sql.py:576} INFO - Loaded 2000 rows into dwh_fact_order_details so far
+[2026-03-26T11:06:07.103+0000] {sql.py:580} INFO - Done loading. Loaded a total of 2154 rows into dwh_fact_order_details
+[2026-03-26T11:06:07.105+0000] {python.py:237} INFO - Done. Returned value was: None
+[2026-03-26T11:06:07.106+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-26T11:06:07.112+0000] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=etl_pipeline2, task_id=stg_to_dwh, execution_date=20260326T110557, start_date=20260326T110603, end_date=20260326T110607
+[2026-03-26T11:06:07.115+0000] {base.py:84} INFO - Using connection ID 'postgres_dwh' for task execution.
+[2026-03-26T11:06:07.126+0000] {sql.py:457} INFO - Running statement: 
+        INSERT INTO etl_logs (
+            dag_id, task_id, status, start_time, end_time, duration_seconds, error_message
+        )
+        VALUES (%s, %s, %s, %s, %s, %s, %s)
+    , parameters: ('etl_pipeline2', 'stg_to_dwh', 'SUCCESS', datetime.datetime(2026, 3, 26, 11, 6, 3, 479210), datetime.datetime(2026, 3, 26, 11, 6, 7, 113299), 3, None)
+[2026-03-26T11:06:07.129+0000] {sql.py:466} INFO - Rows affected: 1
+[2026-03-26T11:06:07.132+0000] {logging_mixin.py:188} INFO - SUCCESS CALLBACK TRIGGERED
+[2026-03-26T11:06:07.164+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-03-26T11:06:07.174+0000] {taskinstance.py:3482} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2026-03-26T11:06:07.176+0000] {local_task_job_runner.py:222} INFO - ::endgroup::
